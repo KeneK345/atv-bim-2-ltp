@@ -41,10 +41,13 @@ def atualizar_atividade(id, novos_dados):
     atividade, erro = buscar_atividade(id)
     if erro:
         return None, erro
+    campos_obrigatorios = ["tentativas", "erros", "dificuldade", "horario"]
+    for campo in campos_obrigatorios:
+        if campo not in novos_dados:
+            return None, "ATIVIDADE_INVALIDA"
     if atividade:
         atividade.tentativas = novos_dados.get("tentativas", atividade.tentativas)
         atividade.erros = novos_dados.get("erros", atividade.erros)
-        atividade.dificuldade = novos_dados.get("dificuldade", atividade.dificuldade)
         atividade.horario = novos_dados.get("horario", atividade.horario)
     return atividade, None
 
