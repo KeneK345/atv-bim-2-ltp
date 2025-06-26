@@ -17,9 +17,9 @@ def criar_usuario(dados):
     # checando se já existe um usuário com o email em dados
     for u in usuarios:
         if u.email == dados["email"]:
-            # mensagem de erro, ainda não implementado
+            # mensagem de erro
             return None, "EMAIL_DUPLICADO"
-    usuario = Usuario(criar_id(), dados["nome"], dados["email"], dados["senha"])
+    usuario = Usuario(criar_id(), dados["nome"], dados["idade"], dados["genero"], dados["email"], dados["senha"])
     usuarios.append(usuario)
     return usuario, None
 
@@ -33,19 +33,18 @@ def buscar_usuario(id):
     for u in usuarios:
         if u.id == id:
             return u, None
-    # mensagem de erro, ainda não implementado
+    # mensagem de erro
     return None, "USUARIO_NAO_ENCONTRADO"
 
 # muda os dados de um usuário
 def atualizar_usuario(id, novos_dados):
     usuario, erro = buscar_usuario(id)
-    # mensagens de erro ainda não implementadas
     if erro:
         return None, erro
     # checando se já existe um usuário com o email em novos_dados
     for u in usuarios:
         if u.email == novos_dados["email"]:
-            # mensagem de erro, ainda não implementado
+            # mensagem de erro
             return None, "EMAIL_DUPLICADO"
     # passando os novos dados para o usuário
     if usuario:
@@ -59,7 +58,7 @@ def excluir_usuario(id):
     global usuarios
     usuario, erro = buscar_usuario(id)
     if not usuario:
-        # mensagem de erro, ainda não implementado
+        # mensagem de erro
         return False, erro
     usuarios.remove(usuario)
     return True, None

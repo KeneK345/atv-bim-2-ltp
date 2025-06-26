@@ -1,7 +1,9 @@
 class Usuario:
-    def __init__(self, id, nome, email, senha):
+    def __init__(self, id, nome, idade, genero, email, senha):
         self.id = id
         self.nome = nome
+        self.idade = idade
+        self.genero = genero
         self.email = email
         self.senha = senha
     
@@ -9,5 +11,7 @@ class Usuario:
         return {
             "id": self.id,
             "nome": self.nome,
+            "idade": self.idade,
+            "genero": self.genero,
             "email": self.email
         }
