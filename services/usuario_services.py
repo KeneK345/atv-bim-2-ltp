@@ -1,64 +1,61 @@
 from models.usuario import Usuario
 
 usuarios = []
-# controla os ids dos usuarios
+
 usuarios_id = 0
 
-# atualiza ids
+
 def criar_id_usuario():
     global usuarios_id
     usuarios_id += 1
     return usuarios_id
 
-# cria um usuário
-# usa um array com dados para criar um objeto Usuário como parâmetros
+
 def criar_usuario(dados):
     global usuarios
-    # checando se já existe um usuário com o email em dados
     for u in usuarios:
         if u.email == dados["email"]:
-            # mensagem de erro
+            
             return None, "EMAIL_DUPLICADO"
     usuario = Usuario(criar_id_usuario(), dados["nome"], dados["idade"], dados["genero"], dados["email"], dados["senha"])
     usuarios.append(usuario)
     return usuario, None
 
-# apresenta todos os usuários presentes no sistema
+
 def listar_usuarios():
     lista = [u.to_dict() for u in usuarios]
     return lista
 
-# procura por um usuário específico com o seu id
+
 def buscar_usuario(id):
     for u in usuarios:
         if u.id == id:
             return u, None
-    # mensagem de erro
+    
     return None, "USUARIO_NAO_ENCONTRADO"
 
-# muda os dados de um usuário
+
 def atualizar_usuario(id, novos_dados):
     usuario, erro = buscar_usuario(id)
     if erro:
         return None, erro
-    # checando se já existe um usuário com o email em novos_dados
+   
     for u in usuarios:
-        if u.email == novos_dados["email"]:
-            # mensagem de erro
+        if u.email == novos_dados["email"] and u.id != id:  
             return None, "EMAIL_DUPLICADO"
-    # passando os novos dados para o usuário
+    
     if usuario:
         usuario.nome = novos_dados.get("nome", usuario.nome)
         usuario.email = novos_dados.get("email", usuario.email)
         usuario.senha = novos_dados.get("senha", usuario.senha)
-    return usuario
+    return usuario, None
 
-# exclui um usuário
+
 def excluir_usuario(id):
     global usuarios
     usuario, erro = buscar_usuario(id)
     if not usuario:
-        # mensagem de erro
+        
         return False, erro
     usuarios.remove(usuario)
     return True, None

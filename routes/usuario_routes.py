@@ -30,14 +30,15 @@ def search_user(id):
         return jsonify({"mensagem": erro_info["mensagem"]})
     return jsonify(usuario.to_dict()), 200
 
-# atualizar_usuario(id) de serviços
-@usuarios_bp.route("/usuarios/<int:id>", methods=["POST"])
+# atualizar_usuario(id, dados) de serviços
+@usuarios_bp.route("/usuarios/<int:id>", methods=["PUT"])
 def update_user(id):
-    usuario, erro = atualizar_usuario(id)
+    dados = request.json
+    usuario, erro = atualizar_usuario(id, dados)
 
     if erro:
-        erro_info = ERROS[erro]
-        return jsonify({"mensagem": erro_info["mensagem"]})
+        erro_info = ERROS.get(erro, {"mensagem": "Erro desconhecido", "status": 500})
+        return jsonify({"mensagem": erro_info["mensagem"]}), erro_info["status"]
     return jsonify(usuario.to_dict()), 200
 
 # excluir_usuario(id) de serviços
