@@ -5,7 +5,7 @@ usuarios = []
 usuarios_id = 0
 
 # atualiza ids
-def criar_id():
+def criar_id_usuario():
     global usuarios_id
     usuarios_id += 1
     return usuarios_id
@@ -19,7 +19,7 @@ def criar_usuario(dados):
         if u.email == dados["email"]:
             # mensagem de erro
             return None, "EMAIL_DUPLICADO"
-    usuario = Usuario(criar_id(), dados["nome"], dados["idade"], dados["genero"], dados["email"], dados["senha"])
+    usuario = Usuario(criar_id_usuario(), dados["nome"], dados["idade"], dados["genero"], dados["email"], dados["senha"])
     usuarios.append(usuario)
     return usuario, None
 
