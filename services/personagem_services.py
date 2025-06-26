@@ -11,11 +11,14 @@ def criar_id_personagem():
 
 
 def criar_personagem(dados):
-    
+    global personagens
     campos_obrigatorios = ["sapato", "roupa", "corpo", "cabelo", "acessorios", "usuario_id"]
     for campo in campos_obrigatorios:
         if campo not in dados:
             return None, "PERSONAGEM_INVALIDO"
+    for p in personagens:
+        if p.usuario_id == dados["usuario_id"]:
+            return None, "PERSONAGEM_JA_EXISTE"
     personagem = Personagem(
         id=criar_id_personagem(),
         sapato=dados["sapato"],
@@ -44,6 +47,10 @@ def atualizar_personagem(id, novos_dados):
     personagem, erro = buscar_personagem(id)
     if erro:
         return None, erro
+    campos_obrigatorios = ["sapato", "roupa", "corpo", "cabelo", "acessorios"]
+    for campo in campos_obrigatorios:
+        if campo not in novos_dados:
+            return None, "PERSONAGEM_INVALIDO"
     if personagem:
         personagem.sapato = novos_dados.get("sapato", personagem.sapato)
         personagem.roupa = novos_dados.get("roupa", personagem.roupa)

@@ -12,7 +12,7 @@ def create_user():
     usuario, erro = criar_usuario(dados)
     if erro:
         erro_info = ERROS.get(erro, {"mensagem": "Erro desconhecido", "status": 500})
-        return jsonify({"mensagem": erro_info["mensagem"]})
+        return jsonify({"mensagem": erro_info["mensagem"]}), erro_info["status"]
     return jsonify(usuario.to_dict()), 201
 
 # listar_usuarios() de serviços
@@ -48,5 +48,5 @@ def delete_user(id):
 
     if erro:
         erro_info = ERROS[erro]
-        return jsonify({"mensagem": erro_info["mensagem"]})
+        return jsonify({"mensagem": erro_info["mensagem"]}), erro_info["status"]
     return "", 204

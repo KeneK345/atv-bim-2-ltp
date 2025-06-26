@@ -41,13 +41,15 @@ def atualizar_usuario(id, novos_dados):
         return None, erro
    
     for u in usuarios:
-        if u.email == novos_dados["email"] and u.id != id:  
+        if u.email == novos_dados["email"]:  
             return None, "EMAIL_DUPLICADO"
     
     if usuario:
         usuario.nome = novos_dados.get("nome", usuario.nome)
         usuario.email = novos_dados.get("email", usuario.email)
         usuario.senha = novos_dados.get("senha", usuario.senha)
+        usuario.idade = novos_dados.get("idade", usuario.idade)
+        usuario.genero = novos_dados.get("genero", usuario.genero)
     return usuario, None
 
 
